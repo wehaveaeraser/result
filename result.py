@@ -13,7 +13,8 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories.streamlit import StreamlitChatMessageHistory
 
 # 🔐 OpenAI API Key 설정
-os.environ["OPENAI_API_KEY"] = ""
+
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 
 #from dotenv import load_dotenv
