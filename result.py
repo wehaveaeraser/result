@@ -41,7 +41,7 @@ def load_and_split_pdf(file) -> list:
     return loader.load_and_split()
 
 # ✅ FAISS 임베딩 벡터 생성
-@st.cache_resource
+#@st.cache_resource
 def create_vectorstore(_docs):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=0)
     split_docs = text_splitter.split_documents(_docs)
