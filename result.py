@@ -1,6 +1,7 @@
 import os
 import tempfile
 import streamlit as st
+import openai
 
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
