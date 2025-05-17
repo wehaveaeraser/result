@@ -13,10 +13,11 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories.streamlit import StreamlitChatMessageHistory
 
 # 🔐 OpenAI API Key 설정
-#os.environ["OPENAI_API_KEY"] = ""
+os.environ["OPENAI_API_KEY"] = ""
 
-from dotenv import load_dotenv
-load_dotenv()
+
+#from dotenv import load_dotenv
+#load_dotenv()
 
 # Streamlit UI 구성
 st.set_page_config(page_title="파일 업로드 + 헌법 Q&A 챗봇", layout="centered")
