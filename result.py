@@ -43,7 +43,7 @@ def load_and_split_pdf(file) -> list:
 # ✅ FAISS 임베딩 벡터 생성
 @st.cache_resource
 def create_vectorstore(_docs):
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=0)
     split_docs = text_splitter.split_documents(_docs)
     for i, doc in enumerate(split_docs):
         doc.metadata["source"] = f"{doc.metadata.get('source', '업로드 파일')} (p.{doc.metadata.get('page', 'n/a')})"
