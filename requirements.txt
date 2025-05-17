@@ -2,8 +2,4 @@ streamlit
 langchain
 langchain_community
 langchain_openai
-langchain-text-splitters
-langchain-chroma
-langchain-core
-langchain-binary
 pypdf
