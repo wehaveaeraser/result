@@ -11,8 +11,6 @@ from langchain.chains import create_history_aware_retriever, create_retrieval_ch
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories.streamlit import StreamlitChatMessageHistory
-from langchain.document_loaders import PyMuPDFLoader
-
 # 🔐 OpenAI API Key 설정
 #os.environ["OPENAI_API_KEY"] = ""
 
@@ -36,7 +34,7 @@ def load_and_split_pdf(file) -> list:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf", prefix=f"upload_{uuid.uuid4().hex[:8]}_") as tmp_file:
         tmp_file.write(file.read())
         tmp_file_path = tmp_file.name
-    loader = PyMuPDFLoader(tmp_file_path)
+    loader = PyPDFLoader(tmp_file_path)
     return loader.load_and_split()
 
 
