@@ -1,7 +1,6 @@
 import os
 import tempfile
 import streamlit as st
-import openai
 
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -12,14 +11,13 @@ from langchain.chains import create_history_aware_retriever, create_retrieval_ch
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories.streamlit import StreamlitChatMessageHistory
+from langchain.document_loaders import PyMuPDFLoader
 
 # 🔐 OpenAI API Key 설정
+#os.environ["OPENAI_API_KEY"] = ""
 
-openai.api_key = st.secrets["OPENAI_API_KEY"]
-
-
-#from dotenv import load_dotenv
-#load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 # Streamlit UI 구성
 st.set_page_config(page_title="파일 업로드 + 헌법 Q&A 챗봇", layout="centered")
@@ -37,13 +35,13 @@ def load_and_split_pdf(file) -> list:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
         tmp_file.write(file.read())
         tmp_file_path = tmp_file.name
-    loader = PyPDFLoader(tmp_file_path)
+    loader = PyMuPDFLoader(tmp_file_path)
     return loader.load_and_split()
 
 # ✅ FAISS 임베딩 벡터 생성
 @st.cache_resource
 def create_vectorstore(_docs):
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=3000, chunk_overlap=300)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     split_docs = text_splitter.split_documents(_docs)
     for i, doc in enumerate(split_docs):
         doc.metadata["source"] = f"{doc.metadata.get('source', '업로드 파일')} (p.{doc.metadata.get('page', 'n/a')})"
