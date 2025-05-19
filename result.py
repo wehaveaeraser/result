@@ -32,11 +32,13 @@ uploaded_file = st.file_uploader("📎 PDF 파일을 업로드하세요", type=[
 # ✅ PDF 로드 및 분할
 @st.cache_resource
 def load_and_split_pdf(file) -> list:
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
+    import uuid
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf", prefix=f"upload_{uuid.uuid4().hex[:8]}_") as tmp_file:
         tmp_file.write(file.read())
         tmp_file_path = tmp_file.name
     loader = PyMuPDFLoader(tmp_file_path)
     return loader.load_and_split()
+
 
 # ✅ FAISS 임베딩 벡터 생성
 @st.cache_resource
